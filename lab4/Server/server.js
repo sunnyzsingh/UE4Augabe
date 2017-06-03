@@ -585,10 +585,12 @@ function getTwitterPublicationString(groupNum, uuid, date) {
     return date.toLocaleString() + " - Gruppe " + groupNum + " hat gerade ein Gerät mit folgender UUID hinzugefügt: " + uuid;
 }
 
-const available = {
+var key = fs.readFileSync( __dirname + '/certificate/webeng.key' , 'utf8');
 
-key: fs.readFileSync(__dirname + "/certificate/" + "webeng.key", 'utf8'),
-cert: fs.readFileSync(__dirname + "/certificate/" + "webeng.crt", 'utf8')
+var cert = fs.readFileSync(__dirname + '/certificate/webeng.crt' , 'utf8');
+const available = {
+key: key,
+cert: cert
 }
 
 //TODO Stellen Sie die REST-Schnittstelle sowohl über http, wie auch über https zur Verfügung
@@ -623,11 +625,12 @@ var https_server = https.createServer(available, app);
 https_server.listen(httpsPort, function()
 {
     "use strict";
-
+    readUser();
+    readDevices();
     var host = https_server.address().address;
     var port = https_server.address().port;
 
-    console.log("Big Smart Home Server listening at http://%s:%s", host, port);
+    console.log("Big Smart Home Server listening at https://%s:%s", host, port);
 
 
 });
