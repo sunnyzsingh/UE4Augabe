@@ -83,7 +83,7 @@ app.post("/createDevice", function (req, res) {
                 res.json({status: 200, message: devices});
                 sendCreate(JSON.stringify(device));
                 //TODO erstellen Sie einen Publication String für Twitter und senden Sie diesen über die Twitter Bibliothek ab
-                var twitterMessage = getTwitterPublicationString(18, id, new Date());
+                var twitterMessage = getTwitterPublicationString(88, id, new Date());
 
                 twitterClient.post('statuses/update', {status: twitterMessage}, function (error, tweet, response) {
                     if (error) throw error;
